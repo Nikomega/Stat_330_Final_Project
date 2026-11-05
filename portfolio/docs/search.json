@@ -51,23 +51,23 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Replace with a specific, informative title",
+    "title": "Predicting Mental Health in young adults in teenagers according to social media and sleep habits.",
     "section": "",
-    "text": "Narrative word count: Replace with a number from 750 to 1,000."
+    "text": "Mental health is an important driver of happiness. This project asks: How do social media, sleep, and academic performance relate to mental health in teenagers and young adults? College students are the intended audience. We use the Mental Health Index, which ranges from 0 to 100, as the response. Higher scores indicate healthier mental health. Candidate predictors are age, daily social media use, extra weekend use, sleep duration, sleep quality, late-night use, perceived stress, and academic performance."
   },
   {
     "objectID": "index.html#the-question",
     "href": "index.html#the-question",
-    "title": "Replace with a specific, informative title",
-    "section": "The question",
-    "text": "The question\nIn one or two short paragraphs, introduce the setting, audience, focused research question, data source, observational unit, response, important predictors, and one important data limitation. Lead with what makes the question worth answering."
+    "title": "Predicting Mental Health in young adults in teenagers according to social media and sleep habits.",
+    "section": "",
+    "text": "Mental health is an important driver of happiness. This project asks: How do social media, sleep, and academic performance relate to mental health in teenagers and young adults? College students are the intended audience. We use the Mental Health Index, which ranges from 0 to 100, as the response. Higher scores indicate healthier mental health. Candidate predictors are age, daily social media use, extra weekend use, sleep duration, sleep quality, late-night use, perceived stress, and academic performance."
   },
   {
     "objectID": "index.html#what-the-baseline-shows",
     "href": "index.html#what-the-baseline-shows",
-    "title": "Replace with a specific, informative title",
+    "title": "Predicting Mental Health in young adults in teenagers according to social media and sleep habits.",
     "section": "What the baseline shows",
-    "text": "What the baseline shows\nDescribe and justify a simple course-based baseline regression model. Interpret the result that best establishes the rest of the story, including its direction, magnitude, scale, and uncertainty. Explain one limitation or unresolved pattern that motivates deeper analysis.\n\n\nShow code\n# Load packages and data, document preparation, and fit the baseline.\n\n\n\n\nShow code\n# Show a primary figure or table only if it helps answer the question."
+    "text": "What the baseline shows\nWe fit a multiple linear regression with the Mental Health Index as the response and the eight candidate predictors as explanatory variables. In the proposal analysis, the coefficient for sleep duration is 3.1335. Holding the other model predictors constant, one additional hour of sleep is associated with an estimated 3.13-point increase in the Mental Health Index. The reported p-value is below 0.0001.\nThe model’s \\(R^2\\) is 0.7995 and its adjusted \\(R^2\\) is 0.7991, so the included predictors account for about 80% of the observed variation in this analysis sample. About 20% remains unexplained. Other factors named in the proposal that may matter include social support, family circumstances, financial stress, personality, physical health, and access to mental health resources. The high \\(R^2\\) describes the fit to the analysis sample; it does not establish causation or show performance on new data.\n\n\nShow code\nlibrary(tidyverse)\n\nstudent_data &lt;- read_csv(\n  \"docs/Social_media_impact_on_life.csv\",\n  show_col_types = FALSE\n) |&gt;\n  select(\n    -Student_ID, -Academic_Level, -Primary_Platform, -Device_Type,\n    -Social_Comparison_Frequency, -Overall_Impact, -Gender\n  ) |&gt;\n  drop_na()\n\nbaseline &lt;- lm(Mental_Health_Index ~ ., data = student_data)\nsummary(baseline)\n\n\n\nCall:\nlm(formula = Mental_Health_Index ~ ., data = student_data)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-20.6234  -3.6998   0.1287   4.0177  19.3266 \n\nCoefficients:\n                         Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)              76.18305    1.76088  43.264   &lt;2e-16 ***\nAge                      -0.00159    0.04413  -0.036    0.971    \nDaily_Usage_Hours        -2.32850    0.06358 -36.621   &lt;2e-16 ***\nWeekend_Extra_Hours      -0.08964    0.12511  -0.717    0.474    \nSleep_Duration_Hours      3.13349    0.12642  24.786   &lt;2e-16 ***\nSleep_Quality_Score      -0.15275    0.13479  -1.133    0.257    \nLate_Night_UsageTRUE     -0.05019    0.18841  -0.266    0.790    \nPerceived_Stress_Score   -0.41275    0.01996 -20.676   &lt;2e-16 ***\nAcademic_Performance_GPA  0.34146    0.32840   1.040    0.298    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 5.769 on 4360 degrees of freedom\nMultiple R-squared:  0.7995,    Adjusted R-squared:  0.7991 \nF-statistic:  2173 on 8 and 4360 DF,  p-value: &lt; 2.2e-16\n\n\nThe first look in the proposal compares Mental Health Index scores by late-night social media use. In the sampled students, those who do not use social media late at night tend to have higher index scores.\n\n\nShow code\nstudent_data |&gt;\n  mutate(\n    Late_Night_Usage = if_else(Late_Night_Usage, \"Yes\", \"No\")\n  ) |&gt;\n  ggplot(aes(x = Late_Night_Usage, y = Mental_Health_Index,\n             fill = Late_Night_Usage)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(\n    title = \"Mental Health Index by late-night social media use\",\n    x = \"Uses social media late at night\",\n    y = \"Mental Health Index (0–100)\"\n  ) +\n  theme_minimal()"
   },
   {
     "objectID": "index.html#going-beyond-the-baseline",
@@ -79,7 +79,7 @@
   {
     "objectID": "index.html#a-new-direction-with-ai",
     "href": "index.html#a-new-direction-with-ai",
-    "title": "Replace with a specific, informative title",
+    "title": "Predicting Mental Health in young adults in teenagers according to social media and sleep habits.",
     "section": "A new direction with AI",
     "text": "A new direction with AI\nExplain the need revealed by your preliminary course-based work, the extension you implemented with AI support, and what it contributes to the same research question. Show its substantive result on this page and summarize your independent checks. If the extension is an untaught comparator, evaluate it against the core course-based model. Link to the AI-use record instead of placing a transcript here.\n\n\nShow code\n# Implement the verified extension or show its most useful result.\n\n\nDetails are in the AI-use record."
   },
@@ -96,5 +96,40 @@
     "title": "Replace with a specific, informative title",
     "section": "Data and code",
     "text": "Data and code\n\nData: Replace with a working source link or citation and any brief acquisition note needed to reproduce the project.\nRepository: Replace with your repository URL.\nAI-use record\nOther sources: Cite package documentation, articles, code, and other sources that materially informed the work."
+  },
+  {
+    "objectID": "index.html#the-data",
+    "href": "index.html#the-data",
+    "title": "Predicting Mental Health in young adults in teenagers according to social media and sleep habits.",
+    "section": "The data",
+    "text": "The data\nThe proposal describes cross-sectional survey data from high school, undergraduate, and postgraduate students ages 15–26. The original dataset has 4,500 observations; the analysis sample has 4,369 after rows with missing values are removed. Measures include self-reported device use, sleep duration and quality, GPA, perceived stress, and mental health. The proposal describes the data as public domain and says it can be retrieved and shared freely.\nThe response is the Mental Health Index (0–100). Candidate predictors are age (years), daily usage (hours), extra weekend usage (hours), sleep duration (hours), sleep quality (subjective score from 1 to 5), late-night use (true/false), perceived stress (score from 0 to 40), and academic performance (GPA from 1 to 4).\nBecause the data are cross-sectional and survey-based, the analysis can describe associations but cannot establish that a behavior causes a change in mental health. The measures are self-reported, and the proposal does not describe the sampling process in detail."
+  },
+  {
+    "objectID": "index.html#where-the-analysis-could-go",
+    "href": "index.html#where-the-analysis-could-go",
+    "title": "Predicting Mental Health in young adults in teenagers according to social media and sleep habits.",
+    "section": "Where the analysis could go",
+    "text": "Where the analysis could go\nThe proposal outlines two next steps. First, use cross-validation to compare the full model with a reduced model chosen by best-subsets BIC and a model chosen by stepwise BIC. Compare their predictive performance using RMSE and \\(R^2\\), to assess how well they may predict outcomes in new data.\nSecond, apply LASSO regression to select and shrink predictors. The proposal notes that several predictors have large p-values in the baseline model and suggests examining whether a smaller set—potentially including sleep duration, daily device use, and late-night use—can make the model easier to interpret while maintaining predictive performance. These are proposed analyses; their results are not yet included here."
+  },
+  {
+    "objectID": "index.html#what-this-means-so-far",
+    "href": "index.html#what-this-means-so-far",
+    "title": "Predicting Mental Health in young adults in teenagers according to social media and sleep habits.",
+    "section": "What this means so far",
+    "text": "What this means so far\nThe proposal’s preliminary results show an association between longer sleep and higher Mental Health Index scores after adjustment for the other included predictors. The first-look plot also suggests higher index scores among sampled students who do not report late-night use. These findings are descriptive and should not be interpreted as evidence that changing sleep or social media habits will cause a change in mental health.\nThe baseline leaves some variation unexplained, and the proposal identifies several possible omitted influences. Cross-validation and LASSO are planned to assess prediction and simplify the model. More complete documentation of the dataset’s source and collection process would also help readers judge how broadly the findings apply."
+  },
+  {
+    "objectID": "index.html#data",
+    "href": "index.html#data",
+    "title": "Predicting Mental Health in young adults in teenagers according to social media and sleep habits.",
+    "section": "Data",
+    "text": "Data\n\nData: Social Media Impact on Life, by Harish Yadav, supplied here as Social_media_impact_on_life.csv. The dataset is of public domain."
+  },
+  {
+    "objectID": "index.html#ai-disclosure-and-sources",
+    "href": "index.html#ai-disclosure-and-sources",
+    "title": "Predicting Mental Health in young adults in teenagers according to social media and sleep habits.",
+    "section": "AI disclosure and sources",
+    "text": "AI disclosure and sources\nAI-use record"
   }
 ]
