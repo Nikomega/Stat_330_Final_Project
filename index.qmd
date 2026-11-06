@@ -77,6 +77,8 @@ The baseline leaves some variation unexplained, and the proposal identifies seve
 # Implement the verified extension or show its most useful result.
 ```
 
+Our AI idea is using it to make an app where we can input the correct data into fields and have the app give us the predicted mental health index effect. We will be able to confirm that the AI is making a good app through confirming code, as well as making sure it can be easily used.
+
 Details are in the [AI-use record](ai-use.qmd).
 
 ## Data
